@@ -25,6 +25,7 @@ def clear():
 actionStart = "No"
 Y = "Y"
 N = "N"
+clear()
 actionStart = input("Have you played before? Y  N ")
 
 if actionStart == "Y":
@@ -109,19 +110,23 @@ print("----------------------------------------")
 menu = 0
 _gameOn = 0
 itemget  = 0
+menuselected = 0
+nextlvl = 100
 #Game Starts Here VVV
 while 1:
   
   while _gameOn == 1:
-    clear()
+    if not menuselected == 1:
+      clear()
   #Leveling Up
-    if exp >= 100:
+    if exp >= nextlvl:
       print("{+}--------------------------------------{+}")
       print("Level Up")
-      exp = exp - 100
+      exp = exp - nextlvl
       level = level + 1
       hp = hp + 5
       maxhp = maxhp + 5
+      nextlvl = nextlvl * 1.5
       print("ATK | DEF | SPD ")
       actionL = input("Choose a Stat To Improve: ")
       if actionL == "ATK" or actionL == "atk" or actionL == "Attack" or actionL == "attack":
@@ -160,6 +165,7 @@ while 1:
       clear()
       hp = maxhp + random.randint(0, 1)
       print("You recovered to ", maxhp, " hp!")
+      menuselected = 1
 
     elif actionM == "Quit" or actionM == "quit":
       clear()
@@ -193,7 +199,6 @@ while 1:
           inventory.remove('Slime Sword')
           wpn = "Slime Sword"
           wpndesc = "Gives +1 Atk"
-          wpnatk = 0
           wpnatk = wpnatk + 1
           print("Slime Sword Equipped")
       elif actionI == "Equip Rotted Shield":
@@ -201,7 +206,6 @@ while 1:
           inventory.remove('Rotted Shield')
           armor = "Rotted Shield"
           armrdesc = "Gives +1 Def"
-          eqdef = 0
           eqdef = eqdef + 1
           print("Rotted Shield Equipped")
       elif actionI == "Equip Soggy Boots":
@@ -209,13 +213,13 @@ while 1:
           inventory.remove('Soggy Boots')
           accessory = "Soggy Boots"
           accdesc = "Gives +1 Spd"
-          eqspd = 0
           eqspd = eqspd + 1
           print("Soggy Boots Equipped")
       elif actionI == "Equip Basic Dagger":
         if 'Basic Dagger' in inventory:
           inventory.remove('Basic Dagger')
           wpn = "Basic Dagger"
+          menuselected = 1
   #Saving  
     elif actionM == "Save Game" or actionM == "save game":
 
@@ -264,20 +268,22 @@ while 1:
       print(armrdesc)
       print("Accessory: ", accessory)
       print(accdesc)
+      menuselected = 1
   #Stats
     elif actionM == "Stats" or actionM == "stats":
       clear()
       print("+------------Stats------------+")
-      print("Name: ", name)
+      print("Name: ", username)
       print("ATK: ", atk, "+", wpnatk)
       print("DEF: ", _def, "+", eqdef)
-      print("SPD: ", spd)
+      print("SPD: ", spd, "+", eqspd)
       print("MAXHP: ", maxhp)
       print("+---------------+")
       print("EXP: ", exp)
-      nxtlvl = (100 - exp)
+      nxtlvl = (nextlvl - exp)
       print("EXP to Next LVL: ", nxtlvl)
       print("Level: ", level)
+      menuselected = 1
   #Training
     elif actionM == "Train" or actionM == "train":
       clear()
@@ -329,6 +335,7 @@ while 1:
           print("+-", username, "-+")
           print("HP: ", hp)
           if enemyspd >= spd+eqspd:
+            clear()
             print("Slime attacks for ", (enemyatk - (_def+eqdef)), "dmg")
             enemydmg = 0
             enemydmg = enemyatk - (_def+eqdef)
@@ -353,6 +360,7 @@ while 1:
               print("You Ran Away")
   #Exploration
     elif actionM == "Explore" or actionM == "explore":
+      clear()
       menu = 2
       print(area)
       inputE = input("Where would you like to go? ")
@@ -388,6 +396,7 @@ while 1:
               inventory.extend( ["Leather Armor"] )
           elif inputGrass == "Menu" or inputGrass == "menu":
             menu = 0
+            exploreA = 0
           elif inputGrass == "Fight" or inputGrass == "fight":
             fightnum = random.randint(2, 4)
             if fightnum == 2:
