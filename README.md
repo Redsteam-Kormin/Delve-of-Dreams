@@ -1,14 +1,21 @@
-A Simple Text-Based Rpg With a Few Features 
+A Simple Text-Based RPG Made in Python with my sub-par coding skills that runs in the terminal.
+
 -Current Version-
+
 Version 1.0
 
 Features:
+
 -Battle System (On Enemy)
+
 -Equipabbles
--Dev Menu
+
+-Extremly W.I.P. Saving System
+
 -Menu Screen
+
 -Stats
 
+No, I Have Barely any idea what I'm Doing. I just learned how to use defines. That's how unskilled I am.
 
-
-Run on Google Colab (or something else.)
+At least I Labeled Things?
