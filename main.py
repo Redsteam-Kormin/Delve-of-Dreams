@@ -21,6 +21,27 @@ def clear():
   
   else:
     _ = system('clear')
+
+def wpnswitch():
+  if not wpn == "None":
+    if wpn == "Slime Sword":
+      wpnatk = wpnatk - 1
+    elif wpn == "Basic Dagger":
+      wpnatk = wpnatk - 1
+      eqspd = eqspd - 1
+
+def armorswitch():
+  if not armor == "None":
+    if armor == "Leather Armor":
+      eqdef = eqdef - 2
+    elif armor == "Rotted Sheild":
+      eqdef = eqdef - 1
+
+def accswitch():
+  if not accessory == "None":
+    if accessory == "Soggy Boots":
+      eqspd = eqspd - 1
+  
 #Main Code
 actionStart = "No"
 Y = "Y"
@@ -33,24 +54,24 @@ if actionStart == "Y":
   actionFileUser = input("Username: ")
   actionFilePass = input("Passkey: ")
 
-  with open("save_f.txt", "r") as f:
+  with open("save_f.json", "r") as f:
     for line in f:
       username, passkey = line.strip().split(":")
       if actionFileUser == username and ActionFilePass == password:
         print("Login successful")
         print("Loading...")
-        username = get_variable_from_file('save_f.txt', 'username')
-        password = get_variable_from_file('save_f.txt', 'password')
-        exp = get_variable_from_file('config.txt', 'exp')
-        level = get_variable_from_file('config.txt', 'level')
-        atk = get_variable_from_file('config.txt', 'atk')
-        _def = get_variable_from_file('config.txt', '_def')
-        spd = get_variable_from_file('save_f.txt', 'spd')
-        hp = get_variable_from_file('save_f.txt', 'hp')
-        maxhp = get_variable_from_file('config.txt', 'maxhp')
-        maxspd = get_variable_from_file('config.txt', 'maxspd')
-        maxatk = get_variable_from_file('config.txt', 'maxatk')
-        maxdef = get_variable_from_file('config.txt', 'maxdef')
+        username = get_variable_from_file('save_f.json', username)
+        password = get_variable_from_file('save_f.json', password)
+        exp = get_variable_from_file('save_f.json', exp)
+        level = get_variable_from_file('save_f.json', level)
+        atk = get_variable_from_file('save_f.json', atk)
+        _def = get_variable_from_file('save_f.json', _def)
+        spd = get_variable_from_file('save_f.json', spd)
+        hp = get_variable_from_file('save_f.json', hp)
+        maxhp = get_variable_from_file('save_f.json', maxhp)
+        maxspd = get_variable_from_file('save_f.json', maxspd)
+        maxatk = get_variable_from_file('save_f.json', maxatk)
+        maxdef = get_variable_from_file('save_f.json', maxdef)
     
 
 
@@ -194,11 +215,20 @@ while 1:
         if 'Soggy Boots' in inventory:
           gold = gold + 1
           inventory.remove('Soggy Boots')
+      elif actionI == "Sell Basic Dagger":
+        if 'Basic Dagger' in inventory:
+          gold = gold + 5
+          inventory.remove('Basic Dagger')
+      elif actionI == "Sell Leather Armor":
+        if 'Leather Armor' in inventory:
+          gold = gold + 10
+          inventory.remove('Leather Armor')
       elif actionI == "Equip Slime Sword":
         if 'Slime Sword' in inventory:
           inventory.remove('Slime Sword')
-          wpn = "Slime Sword"
           wpndesc = "Gives +1 Atk"
+          wpnswitch()
+          wpn = "Slime Sword"
           wpnatk = wpnatk + 1
           print("Slime Sword Equipped")
       elif actionI == "Equip Rotted Shield":
@@ -206,11 +236,13 @@ while 1:
           inventory.remove('Rotted Shield')
           armor = "Rotted Shield"
           armrdesc = "Gives +1 Def"
+          armorswitch()
           eqdef = eqdef + 1
           print("Rotted Shield Equipped")
       elif actionI == "Equip Soggy Boots":
         if 'Soggy Boots' in inventory:
           inventory.remove('Soggy Boots')
+          accswitch()
           accessory = "Soggy Boots"
           accdesc = "Gives +1 Spd"
           eqspd = eqspd + 1
@@ -218,13 +250,23 @@ while 1:
       elif actionI == "Equip Basic Dagger":
         if 'Basic Dagger' in inventory:
           inventory.remove('Basic Dagger')
+          wpnswitch()
           wpn = "Basic Dagger"
+          wpndesc = "Gives +1 Atk and +1 Spd"
+          wpnatk = wpnatk + 1
+          eqspd = eqspd + 1
+      elif actionI == "Equip Leather Armor":
+        if 'Leather Armor' in inventory:
+          inventory.remove('Leather Armor')
+          armorswitch()
+          armor = "Leather Armor"
+          eqdef = eqdef + 2
           menuselected = 1
   #Saving  
     elif actionM == "Save Game" or actionM == "save game":
 
       clear()
-      with open("save_f.txt", "w") as f:
+      with open("save_f.json", "w") as f:
         # Write the variables to the file
         f.write(f"Username: {username}\n")
         f.write(f"Passkey: {passkey}\n")
