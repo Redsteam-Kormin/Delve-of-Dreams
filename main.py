@@ -9,12 +9,26 @@ import json
 import sys
 
 #Defining
-def get_variable_from_file(filename, variable_name):
-    with open(filename, 'r') as file:
-        for line in file:
-            if line.startswith(variable_name + '='):
-                return line.split('=')[1].strip()
-    return None
+def get_variables(file_path):
+    """Gets all the variables from the given JSON file.
+    Args:
+        file_path: The path to the JSON file.
+    Returns:
+        A dictionary of variables.
+    """
+    with open(file_path, 'r') as f:
+      data = f.readlines()
+    return data
+def load_save(file_path):
+  """Loads variables from a JSON file and assigns them to corresponding variables in the current scope.
+  Args:
+      file_path: The path to the JSON file.
+  """
+  with open(file_path, 'r') as f:
+    data = json.load(f)
+  # Assign loaded values to corresponding variables in current scope
+  globals().update(data)
+
 def clear():
   if name == 'nt':
     _ = system('cls')
@@ -80,7 +94,35 @@ def accswitch():
   if not accessory == "None":
     if accessory == "Soggy Boots":
       eqspd = eqspd - 1
-  
+
+#Starup Variables:
+username = 0
+passkey = 0
+exp = 0
+level = 1
+atk = 1
+_def = 0
+spd = 1
+hp = 10
+maxhp = 10
+maxspd = 1
+maxatk = 1
+maxdef = 0
+wpnatk = 0
+eqdef = 0
+eqspd = 0
+wpn = "None"
+wpndesc = ""
+armor = "None"
+armrdesc = ""
+accessory = "None"
+accdesc = ""
+gold = 0
+#Extra Stats
+lifesteal = 0
+luck = 1
+wealth = 0
+exhp = 0
 #Main Code
 actionStart = "No"
 Y = "Y"
@@ -92,25 +134,21 @@ if actionStart == "Y":
   print("Warning, this does not work yet, it is in Progress.")
   actionFileUser = input("Username: ")
   actionFilePass = input("Passkey: ")
-
-  with open("save_f.json", "r") as f:
-    for line in f:
-      username, passkey = line.strip().split(":")
-      if actionFileUser == username and ActionFilePass == password:
-        print("Login successful")
-        print("Loading...")
-        username = get_variable_from_file('save_f.json', username)
-        password = get_variable_from_file('save_f.json', password)
-        exp = get_variable_from_file('save_f.json', exp)
-        level = get_variable_from_file('save_f.json', level)
-        atk = get_variable_from_file('save_f.json', atk)
-        _def = get_variable_from_file('save_f.json', _def)
-        spd = get_variable_from_file('save_f.json', spd)
-        hp = get_variable_from_file('save_f.json', hp)
-        maxhp = get_variable_from_file('save_f.json', maxhp)
-        maxspd = get_variable_from_file('save_f.json', maxspd)
-        maxatk = get_variable_from_file('save_f.json', maxatk)
-        maxdef = get_variable_from_file('save_f.json', maxdef)
+  if actionFileUser == "savetest" and actionFilePass == "devtool":
+    with open("dev_f.json", "r") as f:
+      for line in f:
+        username, passkey, exp, level, atk, _def, spd, hp, maxhp, maxspd, maxatk, maxdef, wpnatk, eqdef, eqspd, wpn, wpndesc, armor, armrdesc, accessory, accdesc, gold, lifesteal, luck, wealth, exhp = line.strip().split(":")
+        print("How You Doin' Today?")
+        print("Logging In SaveTester...")
+        load_save("dev_f.json")
+        
+  else:
+    with open("save_f.json", "r") as f:
+      for line in f:
+        username, passkey, exp, level, atk, _def, spd, hp, maxhp, maxspd, maxatk, maxdef, wpnatk, eqdef, eqspd, wpn, wpndesc, armor, armrdesc, accessory, accdesc, gold, lifesteal, luck, wealth, exhp = line.strip().split(":")
+        if actionFileUser == username and ActionFilePass == password:
+          print("Login Successful:")
+          load_save("save_f.json")
     
 
 
@@ -335,32 +373,32 @@ while 1:
       clear()
       with open("save_f.json", "w") as f:
         # Write the variables to the file
-        f.write(f"Username: {username}\n")
-        f.write(f"Passkey: {passkey}\n")
-        f.write(f"Exp: {exp}\n")
-        f.write(f"Level: {level}\n")
-        f.write(f"Atk: {atk}\n")
-        f.write(f"Def: {_def}\n")
-        f.write(f"Spd: {spd}\n")
-        f.write(f"Hp: {hp}\n")
-        f.write(f"MaxHp: {maxhp}\n")
-        f.write(f"MaxSpd: {maxspd}\n")
-        f.write(f"MaxAtk: {maxatk}\n")
-        f.write(f"MaxDef: {maxdef}\n")
-        f.write(f"WpnAtk: {wpnatk}\n")
-        f.write(f"Equipment Defense: {eqdef}\n")
-        f.write(f"Equipment Speed: {eqspd}\n")
-        f.write(f"Weapon: {wpn}\n")
-        f.write(f"Weapon Description: {wpndesc}\n")
-        f.write(f"Armor: {armor}\n")
-        f.write(f"Armor Description: {armrdesc}\n")
-        f.write(f"Accessory: {accessory}\n")
-        f.write(f"Accessory Description: {accdesc}\n")
-        f.write(f"Gold: {gold}\n")
-        f.write(f"Lifesteal: {lifesteal}\n")
-        f.write(f"Wealth: {wealth}\n")
-        f.write(f"Luck: {luck}\n")
-        f.write(f"Extra Hp: {exhp}\n")
+        f.write(username, ":")
+        f.write(passkey, ":")
+        f.write(exp, ":")
+        f.write(level, ":")
+        f.write(atk, ":")
+        f.write(_def, ":")
+        f.write(spd, ":")
+        f.write(hp, ":")
+        f.write(maxhp, ":")
+        f.write(maxspd, ":")
+        f.write(maxatk, ":")
+        f.write(maxdef, ":")
+        f.write(wpnatk, ":")
+        f.write(eqdef, ":")
+        f.write(eqspd, ":")
+        f.write(wpn, ":")
+        f.write(wpndesc, ":")
+        f.write(armor, ":")
+        f.write(armrdesc, ":")
+        f.write(accessory, ":")
+        f.write(accdes, ":")
+        f.write(gold, ":")
+        f.write(lifesteal, ":")
+        f.write(wealth, ":")
+        f.write(luck, ":")
+        f.write(exhp, ":")
       
       print("Game Saved!")
 
