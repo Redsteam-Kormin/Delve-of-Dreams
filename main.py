@@ -22,6 +22,45 @@ def clear():
   else:
     _ = system('clear')
 
+def userturn():
+  print("+|Actions|+")
+  print("Attack")
+  print("Defend")
+  print("Run")
+  actionB = input("What do you do? ")
+  if actionB == "Attack" or actionB == "attack":
+    enemyhp = enemyhp - (atk + wpnatk)
+    spd = spd - 1
+  elif actionB == "Defend" or actionB == "defend":
+    _def = maxdef + 1
+    spd = spd - 1
+  elif actionB == "Run" or actionB == "run":
+    fightnum = 0
+    menu = 0
+    print("You Ran Away")
+
+def battlecheck():
+  if hp <= 0:
+    print("You Died!")
+    menu = 0
+    fightnum = 0
+    hp = 1
+    spd = maxspd
+    atk = maxatk
+    _def = maxdef
+    exp = exp - 3
+  elif enemyhp <= 0:
+    fightnum = 0
+    menu = 0
+    print("You Win!")
+    exp = exp + ((enemyhp + 2) * 5)
+    spd = maxspd
+    atk = maxatk
+    _def = maxdef
+    gold = (gold + (1 * luck)) + (wealth * 2)
+    itemrng = random.randint(1, 10)
+    dorng = True
+
 def wpnswitch():
   if not wpn == "None":
     if wpn == "Slime Sword":
@@ -113,6 +152,7 @@ area.extend( ["Grassland"] )
 area.extend( ["Graveyard"] )
 area.extend( ["Dungeon"] )
 exploreA = 0
+dorng = False
 def logo():                                                         
   print("      ,------.         ,--.                     ,-----.  ,---.   ")
   print("      |  .-.  \  ,---. |  |,--.  ,--.,---.     '  .-.  '/  .-'   ")
@@ -203,6 +243,8 @@ while 1:
       actionI = input("What would you like to do? (Equip Item) (Sell Item) (Menu): ")
       if actionI == "Menu" or actionI == "menu":
         menu = 0
+
+      #Base Stuff
       elif actionI == "Sell Slime Sword":
         if 'Slime Sword' in inventory:
           gold = gold + 1
@@ -262,6 +304,31 @@ while 1:
           armor = "Leather Armor"
           eqdef = eqdef + 2
           menuselected = 1
+      #Grassland items
+    elif actionI == "Sell Wolf Pelt":
+      if 'Wolf Pelt' in inventory:
+        gold = gold + 3
+        inventory.remove('Wolf Pelt')
+    elif actionI == "Sell Wolf Fang":
+      if 'Wolf Fang' in inventory:
+        gold = gold + 4
+        inventory.remove('Wolf Fang')
+    elif actionI == "Sell Rusty Knife":
+      if 'Rusty Knife' in inventory:
+        gold = gold + 3
+        inventory.remove('Rusty Knife')
+    elif actionI == "Sell Golem Core":
+      if 'Golem Core' in inventory:
+        gold = gold + 5
+        inventory.remove('Golem Core')
+    elif actionI == "Sell Slime Greatsword":
+      if 'Slime Greatsword' in inventory:
+        gold = gold + 6
+        inventory.remove('Slime Greatsword')
+    elif actionI == "Sell Slime Core":
+      if 'SlimeCore' in inventory:
+        gold = gold + 4
+        inventory.remove('Slime Core')
   #Saving  
     elif actionM == "Save Game" or actionM == "save game":
 
@@ -336,38 +403,23 @@ while 1:
       if fightnum == 1:
         enemyhp = 5
       while fightnum == 1:
-        if hp <= 0:
-          print("You Died!")
-          menu = 0
-          fightnum = 0
-          hp = 1
-          spd = maxspd
-          atk = maxatk
-          _def = maxdef
-          exp = exp - 3
-        elif enemyhp <= 0:
-          fightnum = 0
-          menu = 0
-          print("You Win!")
-          exp = exp + ((enemyhp + 2) * 5)
-          spd = maxspd
-          atk = maxatk
-          _def = maxdef
-          gold = (gold + (1 * luck)) + (wealth * 2)
-          itemrng = random.randint(1, 10)
-          if fightnum <= 2:
-            if itemrng == 2:
-              inventory.extend( ["Slime Sword"] )
-              print("You got Slime Sword!")
-              itemget = 1
-            elif itemrng == 5:
-              inventory.extend( ["Rotted Shield"] )
-              print("You got Rotted Shield!")
-              itemget = 1
-            elif itemrng == 7:
-              inventory.extend( ["Soggy Boots"] )
-              print("You got Soggy Boots!")
-              itemget = 1
+        battlecheck()
+        #rng stuff:
+        if dorng == True:
+          if itemrng == 2:
+            inventory.extend( ["Slime Sword"] )
+            print("You got Slime Sword!")
+            itemget = 1
+          elif itemrng == 5:
+            inventory.extend( ["Rotted Shield"] )
+            print("You got Rotted Shield!")
+            itemget = 1
+          elif itemrng == 7:
+            inventory.extend( ["Soggy Boots"] )
+            print("You got Soggy Boots!")
+            itemget = 1
+          dorng = False
+        #fightin'
         elif fightnum == 1:
           print("Slime")
           enemyatk = 1
@@ -376,30 +428,16 @@ while 1:
           print("HP: ", enemyhp)
           print("+-", username, "-+")
           print("HP: ", hp)
-          if enemyspd >= spd+eqspd:
+          if enemyspd >= spd + eqspd:
             clear()
-            print("Slime attacks for ", (enemyatk - (_def+eqdef)), "dmg")
+            print("Slime attacks for ", (enemyatk - (_def + eqdef)), "dmg")
             enemydmg = 0
-            enemydmg = enemyatk - (_def+eqdef)
+            enemydmg = enemyatk - (_def + eqdef)
             hp = hp - enemydmg
             spd = maxspd
             _def = maxdef
           else:
-            print("+|Actions|+")
-            print("Attack")
-            print("Defend")
-            print("Run")
-            actionB = input("What do you do? ")
-            if actionB == "Attack" or actionB == "attack":
-              enemyhp = enemyhp - (atk + wpnatk)
-              spd = maxspd - 1
-            elif actionB == "Defend" or actionB == "defend":
-              _def = maxdef + 1
-              spd = maxspd - 1
-            elif actionB == "Run" or actionB == "run":
-              fightnum = 0
-              menu = 0
-              print("You Ran Away")
+            userturn()
   #Exploration
     elif actionM == "Explore" or actionM == "explore":
       clear()
@@ -442,9 +480,109 @@ while 1:
           elif inputGrass == "Fight" or inputGrass == "fight":
             fightnum = random.randint(2, 4)
             if fightnum == 2:
-              print("}-[Battle]-{")
-              print()
+              enemyhp = 10
+            while fightnum == 2:
+              battlecheck()
+              #rng stuff:
+              if dorng == True:
+                if itemrng == 1:
+                  inventory.extend( ["Wolf Pelt"] )
+                  print("You got A Wolf Pelt!")
+                  itemget = 1
+                elif itemrng == 8:
+                  inventory.extend( ["Wolf Fang"] )
+                  print("You got A Wolf Fang!")
+                  itemget = 1
+                dorng = False
+                #fightin'
+              elif fightnum == 2:
+                print("Wolf")
+                enemyatk = 2
+                enemydef = 0
+                enemyspd = 1
+                print("HP: ", enemyhp)
+                print("+-", username, "-+")
+                print("HP: ", hp)
+                if enemyspd >= spd + eqspd:
+                  clear()
+                  print("Wolf attacks for ", (enemyatk - (_def + eqdef)), "dmg")
+                  enemydmg = 0
+                  enemydmg = enemyatk - (_def + eqdef)
+                  hp = hp - enemydmg
+                  spd = maxspd
+                  _def = maxdef
+                    
+                else:
+                  userturn()
+            if fightnum == 3:
+              enemyhp = 3
+            while fightnum == 3:
+              battlecheck()
+              #rng stuff:
+              if dorng == True:
+                if itemrng == 3:
+                  inventory.extend( ["Rusty Knife"] )
+                  print("You got A Rusty Knife!")
+                  itemget = 1
+                elif itemrng == 9:
+                  inventory.extend( ["Golem Core"] )
+                  print("You got A Golem Core!")
+                  itemget = 1
+                dorng = False
+              #fightin'
+              elif fightnum == 3:
+                print("Golem")
+                enemyatk = 6
+                enemydef = 1
+                enemyspd = 0
+                print("HP: ", enemyhp)
+                print("+-", username, "-+")
+                print("HP: ", hp)
+                if enemyspd >= spd + eqspd:
+                  clear()
+                  print("Golem attacks for ", enemyatk, "dmg")
+                  enemydmg = 0
+                  enemydmg = enemyatk
+                  hp = hp - enemydmg
+                  spd = maxspd
+                  _def = maxdef
+                else:
+                  userturn()
+            if fightnum == 4:
+              enemyhp = 10
+            while fightnum == 4:
+              battlecheck()
+              #rng stuff:
+              if dorng == True:
+                if itemrng == 7:
+                  inventory.extend( ["Slime Greatsword"] )
+                  print("You got Slime Greatsword!")
+                  itemget = 1
+                elif itemrng == 4:
+                  inventory.extend( ["Slime Core"] )
+                  print("You got A Slime Core!")
+                  itemget = 1
+                dorng = False
+                #fightin'
+              elif fightnum == 4:
+                print("Big Slime")
+                enemyatk = 1
+                enemydef = 1
+                enemyspd = 1
+                print("HP: ", enemyhp)
+                print("+-", username, "-+")
+                print("HP: ", hp)
+                if enemyspd >= spd + eqspd:
+                  clear()
+                  print("The Big Slime attacks for ", (enemyatk - (_def + eqdef)), "dmg")
+                  enemydmg = 0
+                  enemydmg = enemyatk - (_def + eqdef)
+                  hp = hp - enemydmg
+                  spd = maxspd
+                  _def = maxdef
 
+                else:
+                  userturn()
 
   #Fighting God (Unfinished)
     elif actionM == "fight god":
