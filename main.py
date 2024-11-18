@@ -305,30 +305,30 @@ while 1:
           eqdef = eqdef + 2
           menuselected = 1
       #Grassland items
-    elif actionI == "Sell Wolf Pelt":
-      if 'Wolf Pelt' in inventory:
-        gold = gold + 3
-        inventory.remove('Wolf Pelt')
-    elif actionI == "Sell Wolf Fang":
-      if 'Wolf Fang' in inventory:
-        gold = gold + 4
-        inventory.remove('Wolf Fang')
-    elif actionI == "Sell Rusty Knife":
-      if 'Rusty Knife' in inventory:
-        gold = gold + 3
-        inventory.remove('Rusty Knife')
-    elif actionI == "Sell Golem Core":
-      if 'Golem Core' in inventory:
-        gold = gold + 5
-        inventory.remove('Golem Core')
-    elif actionI == "Sell Slime Greatsword":
-      if 'Slime Greatsword' in inventory:
-        gold = gold + 6
-        inventory.remove('Slime Greatsword')
-    elif actionI == "Sell Slime Core":
-      if 'SlimeCore' in inventory:
-        gold = gold + 4
-        inventory.remove('Slime Core')
+      elif actionI == "Sell Wolf Pelt":
+        if 'Wolf Pelt' in inventory:
+          gold = gold + 3
+          inventory.remove('Wolf Pelt')
+      elif actionI == "Sell Wolf Fang":
+        if 'Wolf Fang' in inventory:
+          gold = gold + 4
+          inventory.remove('Wolf Fang')
+      elif actionI == "Sell Rusty Knife":
+        if 'Rusty Knife' in inventory:
+          gold = gold + 3
+          inventory.remove('Rusty Knife')
+      elif actionI == "Sell Golem Core":
+        if 'Golem Core' in inventory:
+          gold = gold + 5
+          inventory.remove('Golem Core')
+      elif actionI == "Sell Slime Greatsword":
+        if 'Slime Greatsword' in inventory:
+          gold = gold + 6
+          inventory.remove('Slime Greatsword')
+      elif actionI == "Sell Slime Core":
+        if 'SlimeCore' in inventory:
+          gold = gold + 4
+          inventory.remove('Slime Core')
   #Saving  
     elif actionM == "Save Game" or actionM == "save game":
 
