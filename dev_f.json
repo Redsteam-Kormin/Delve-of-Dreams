@@ -1,28 +1,28 @@
 {
-  savetest:
-  devtool:
-  0:
-  1:
-  1:
-  0:
-  1:
-  10:
-  10:
-  1:
-  1:
-  0:
-  500:
-  50:
-  150:
-  "Twilight Claymore":
-  "This Black Claymore has millions   of shining yellow eyes...":
-  "Bird Attracting Bread Armor":
-  "A set of armor made from bread.   The birds love it!":
-  "Wings Of Sunset":
-  "These wings grant the power to   control the movement of the sun, use it carfully.":
-  999999:
-  0:
-  0:
-  1:
-  0
+  "username": "savetest", 
+  "passkey": "devtool",
+  "exp": 0,
+  "level": 1,
+  "atk": 1,
+  "_def": 0,
+  "spd": 1,
+  "hp": 10,
+  "maxhp": 10,
+  "maxspd": 1,
+  "maxatk": 1,
+  "maxdef": 0,
+  "wpnatk": 500,
+  "eqdef": 50,
+  "eqspd": 150,
+  "wpn": "Twilight Claymore",
+  "wpndesc": "This Black Claymore has millions of shining yellow eyes...",
+  "armor": "Bird Attracting Bread Armor",
+  "armrdesc": "A set of armor made from bread. The birds love it!",
+  "accessory": "Wings Of Sunset",
+  "accdesc": "These wings grant the power to control the movement of the sun. Use it carefully.",
+  "gold": 999999,
+  "lifesteal":0,
+  "wealth": 0,
+  "luck": 1,
+  "exhp": 0
 }

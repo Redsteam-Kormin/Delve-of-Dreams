@@ -1,28 +1,28 @@
 {
-Username: base
-Passkey: 0000
-Exp: 0
-Level: 1
-Atk: 1
-Def: 0
-Spd: 1
-Hp: 10
-MaxHp: 10
-MaxSpd: 1
-MaxAtk: 1
-MaxDef: 0
-WpnAtk: 0
-Equipment Defense: 0
-Equipment Speed: 0
-Weapon: None
-Weapon Description: 
-Armor: None
-Armor Description: 
-Accessory: None
-Accessory Description: 
-Gold: 0
-Lifesteal: 0
-Wealth: 0
-Luck: 1
-Extra Hp: 0
+  "username" : "base",
+  "passkey" : "0000",
+  "exp" : 0,
+  "level" : 1,
+  "atk" : 1,
+  "_def" : 0,
+  "spd" : 1,
+  "hp" : 10,
+  "maxhp" : 10,
+  "maxspd" : 1,
+  "maxatk" : 1,
+  "maxdef" : 0,
+  "wpnatk" : 0,
+  "eqdef" : 0,
+  "eqspd" : 0,
+  "wpn" : "None",
+  "wpndesc" : "",
+  "armor" : "None",
+  "armrdesc" : "",
+  "accessory" : "None",
+  "accdesc" : "",
+  "gold" : 0,
+  "lifesteal" : 0,
+  "wealth" : 0,
+  "luck" : 1,
+  "exhp" : 0,
 }
