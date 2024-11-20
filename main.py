@@ -144,11 +144,11 @@ if actionStart == "Y":
       
   else:
     with open("save_f.json", "r") as f:
-      for line in f:
-        username, passkey, exp, level, atk, _def, spd, hp, maxhp, maxspd, maxatk, maxdef, wpnatk, eqdef, eqspd, wpn, wpndesc, armor, armrdesc, accessory, accdesc, gold, lifesteal, luck, wealth, exhp = line.strip().split(",")
-        if actionFileUser == username and ActionFilePass == password:
-          print("Login Successful:")
-          load_save("save_f.json")
+      if actionFileUser == username and ActionFilePass == password:
+        data = json.load(f) 
+        globals().update(data) 
+        print("Login Successful:")
+        load_save("save_f.json")
     
 
 
